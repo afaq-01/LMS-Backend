@@ -14,7 +14,7 @@ connectCloudinary()
 
 
 // MIDDLE_WARE
-app.use(
+App.use(
   cors({
     origin: [
       "http://localhost:5173",
