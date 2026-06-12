@@ -14,7 +14,16 @@ connectCloudinary()
 
 
 // MIDDLE_WARE
-App.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://frontend-delta-navy-4hcyvec3cs.vercel.app"
+    ],
+    credentials: true
+  })
+);
 App.use(json());
 
 // api end pionts
