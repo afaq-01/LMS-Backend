@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
 import Connectdb from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
 import express, { json } from 'express';
