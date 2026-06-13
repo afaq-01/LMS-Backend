@@ -3,6 +3,9 @@ import connectCloudinary from "./config/cloudinary.js";
 import express, { json } from 'express';
 import cors from 'cors';
 import product_router from "./routes/product_routes.js";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
 const App = express();
