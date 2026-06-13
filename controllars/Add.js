@@ -4,9 +4,6 @@ import course_model from '../models/Course_model.js';
 import Stripe from "stripe";
 
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-
-
 export const add = async (req, res) => {
   try {
     const { name, notes, description, title, price, duration } = req.body;
@@ -106,28 +103,37 @@ export const payment_controllar = async (req, res) => {
   try {
     const { name, price } = req.body;
 
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error("Stripe key missing in environment variables");
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       line_items: [
         {
           price_data: {
-            currency: 'usd',
-            product_data: {
-              name: name,
-            },
-            unit_amount: price * 100, // amount in cents
+            currency: "usd",
+            product_data: { name },
+            unit_amount: price * 100,
           },
           quantity: 1,
         },
       ],
-      mode: 'payment',
-      success_url: 'http://localhost:5173/enrollment',
-      cancel_url: 'http://localhost:3000/cancel',
+      mode: "payment",
+      success_url: "http://localhost:5173/enrollment",
+      cancel_url: "http://localhost:3000/cancel",
     });
 
-    res.json({ id: session.id, success:true });
+    return res.json({ id: session.id, success: true });
+
   } catch (error) {
-  
-    res.status(500).json({ sucess: false });
+    console.error("PAYMENT ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
