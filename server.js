@@ -23,7 +23,7 @@ App.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
-      "https://frontend-delta-navy-4hcyvec3cs.vercel.app"
+      "https://lms-frontend-production-4c3f.up.railway.app"
     ],
     credentials: true
   })
