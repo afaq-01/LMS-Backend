@@ -13,6 +13,9 @@ const port=4000;
 Connectdb();
 connectCloudinary()
 
+console.log("Stripe key exists:", !!process.env.STRIPE_SECRET_KEY);
+console.log("Stripe key:", process.env.STRIPE_SECRET_KEY?.slice(0, 10));
+
 
 // MIDDLE_WARE
 App.use(
