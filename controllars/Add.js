@@ -103,6 +103,11 @@ export const payment_controllar = async (req, res) => {
   try {
     const { name, price } = req.body;
 
+    console.log("Request body:", req.body);
+console.log("Name:", name);
+console.log("Price:", price);
+console.log("Unit amount:", Number(price) * 100);
+
     if (!process.env.STRIPE_SECRET_KEY) {
       throw new Error("Stripe key missing in environment variables");
     }
